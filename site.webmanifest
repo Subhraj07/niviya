@@ -1,0 +1,13 @@
+{
+  "name": "Niviya Interiors",
+  "short_name": "Niviya",
+  "description": "Complete home interiors, designed and built in-house across Bengaluru.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#FAF8F5",
+  "theme_color": "#111111",
+  "icons": [
+    { "src": "assets/logo/favicon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "assets/logo/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}

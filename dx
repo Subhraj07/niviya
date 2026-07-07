@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# Thin host-side wrapper: run any command inside the project media toolchain
+# container. The project dir is bind-mounted at /work. Usage:
+#   ./dx magick input.jpg -resize 1600x out.webp
+#   ./dx ffmpeg -i in.mp4 ...
+#   ./dx bash        # interactive shell in the toolchain
+set -euo pipefail
+
+IMAGE="niviya-tools"
+PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# Read-only source of original photos/videos (override with SRC_DIR=…)
+SRC_DIR="${SRC_DIR:-/Users/subhrajitmohanty/Downloads/interior}"
+
+# Build the image once (cached thereafter).
+if ! docker image inspect "$IMAGE" >/dev/null 2>&1; then
+  echo "· building $IMAGE image (first run only)…" >&2
+  docker build -t "$IMAGE" "$PROJECT_DIR/tools"
+fi
+
+exec docker run --rm -t \
+  -v "$PROJECT_DIR":/work \
+  -v "$SRC_DIR":/src:ro \
+  -w /work \
+  "$IMAGE" "$@"

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://subhraj07.github.io/niviya-interiors/sitemap.xml
